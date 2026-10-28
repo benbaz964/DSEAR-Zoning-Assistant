@@ -28,6 +28,8 @@ Each source of release has one grade. A continuous grade gives Zone 0, a primary
 | Closed containers / sealed system | Vapour space inside the containers | None: no release in normal operation | Leak or spill of the full amount |
 | Decanting / filling / sampling | Vapour space inside the receiving container | Vapour pushed out of the container mouth while filling | Spill of the full amount |
 | Open vessel / continuous emission | Evaporation from the open liquid surface | Vapour pushed out while charging the vessel | Spill or overflow of the full amount |
+| Open tin or tray | Evaporation from the open liquid surface | None: no other release in normal operation | Spill of the full amount |
+| Wiping with solvent rags | Vapour space inside the solvent container | Evaporation from the wet rag and the wiped surface | Spill of the full amount |
 
 A zone drops out when:
 
@@ -35,9 +37,16 @@ A zone drops out when:
 - a liquid is handled more than the flash point margin below its flash point;
 - the substance is a gas, because a gas system holds no air, so there is no Zone 0 inside.
 
-Where ventilation availability is fair or poor, IEC Table D.1 adds an outer zone sized with the failed-ventilation rate. Each zone sits at least 0.5 m beyond the zone inside it. Where Vz exceeds the room volume, the zone becomes the whole room.
+Where ventilation availability is fair or poor, IEC Table D.1 adds an outer zone sized with the failed-ventilation rate. A zone only shows beyond the zone inside it where its own source reaches further. Otherwise it is reported as within the inner zone. Where Vz exceeds the room volume, the zone becomes the whole room.
 
 The result panel shows each zone's extent, its equipment protection level and the source that sets it. A plan view draws the zones to scale.
+
+## Zone distances
+
+- **Exact.** Each distance is the radius of a hemisphere of volume Vz, with no rounding and no minimum distance.
+- **Safety factor.** The zone edge sits at k × LFL, with k = 0.25 for continuous and primary grades and 0.5 for secondary. The values live on the Tables sheet.
+- **Limited by the amount.** A release can't make more flammable mixture than the vapour its amount can give. Vz used is the smaller of the steady Vz and that vapour divided by k × LFL. Enter the amount handled in one go, or the amount per hour if the job repeats back to back.
+- **Negligible extent.** Zones with Vz under 0.1 m³ are reported as negligible (NE), with their radius.
 
 ## Quick Zone release rates
 
@@ -45,9 +54,10 @@ The result panel shows each zone's extent, its equipment protection level and th
 - **Filling a container (primary).** Filling rate × saturated vapour density, plus evaporation from the container mouth.
 - **Open liquid surface (continuous).** Pool evaporation over the vessel's liquid surface.
 - **Charging an open vessel (primary).** Filling rate × saturated vapour density, plus evaporation from the surface.
+- **Wiping with rags (primary).** Evaporation from the wet area of the rag and the wiped surface.
 - **Gases.** Every source uses the leak through the hole area at the stated pressure.
 
-Filling rate, mouth area and vessel surface are screening assumptions on the Quick Zone sheet. Change them to match the task.
+Filling rate, mouth area, open surface and wet area are screening assumptions on the Quick Zone sheet. Change them to match the task.
 
 ## Gas and vapour method
 
