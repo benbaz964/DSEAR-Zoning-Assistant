@@ -9,13 +9,15 @@ Gas and vapour zoning follows IEC 60079-10-1: release rate, hypothetical volume 
 | Sheet | Purpose |
 | --- | --- |
 | Quick Zone | Pick a substance, an activity and an amount, and get the Zone 0, 1 and 2 extents with a plan view. |
+| Quick Dust | Pick a dust, an activity and an amount, and get the Zone 20, 21 and 22 extents, equipment requirements and a plan view. |
 | Read Me | Method, equations and limitations. |
 | Gas-Vapour | One row per source of release, up to 50 rows. |
 | Dust | One row per dust source, up to 40 rows. |
 | Substances | Gas and vapour property library. Add rows to extend the dropdowns. |
-| Dusts | Dust property library. |
+| Dusts | Dust property library: ignition data, particle size, bulk density, dustiness, MEC, Kst and Pmax. |
 | Tables | Constants, k factors, the zone matrix, the T-class table and the Quick Zone activities. |
 | Quick Zone Calc | The workings behind Quick Zone, source by source. |
+| Quick Dust Calc | The workings behind Quick Dust, source by source. |
 
 Yellow cells are inputs. Grey cells come from the libraries. Green cells are results.
 
@@ -58,6 +60,31 @@ The result panel shows each zone's extent, its equipment protection level and th
 - **Gases.** Every source uses the leak through the hole area at the stated pressure.
 
 Filling rate, mouth area, open surface and wet area are screening assumptions on the Quick Zone sheet. Change them to match the task.
+
+## Quick Dust
+
+IEC 60079-10-2 sets the dust zone types but gives no calculation for zone sizes. It relies on examples and judgement. Quick Dust makes that judgement explicit and bounded.
+
+| Activity | Zone 20 | Zone 21 | Zone 22 |
+| --- | --- | --- | --- |
+| General handling (closed bags) | None | None: bags stay closed | Bag split or container dropped |
+| Sack tipping into a hopper | Inside the hopper | Dust puffed out of the opening | Bag burst or spill |
+| Filling bags, drums or big bags | Inside the container being filled | Dust pushed out at the filling head | Overfill, split bag or failed seal |
+| Drilling, cutting or sanding | None | Dust thrown from the tool | Built-up dust knocked loose |
+| Transfer point or conveyor drop | Inside the chute or enclosure | Dust from the open transfer point | Spill or blocked chute |
+| Charging an open mixer | Inside the mixer | Dust from the charging opening | Spill or lid left open |
+| Enclosed milling or sieving | Inside the mill, grinder or sieve | None: dust-tight | Leak at seals, covers or joints |
+| Dust extraction unit | Dirty side of the filter or cyclone | Dust raised emptying the bin | Leak or filter failure |
+
+- **LEV.** Partial or good capture shrinks Zone 21. The same release with the LEV failed becomes a Zone 22 source.
+- **Housekeeping.** Settled layers are Zone 22 with fair housekeeping and Zone 21 with poor housekeeping. They cover the area the dust reaches, or the deposits you have seen if wider.
+- **Zone size.** Each zone is the largest cloud the airborne dust from one operation could form at k × MEC. That is an upper bound, because a real cloud is denser near the source.
+- **Airborne dust.** Amount × airborne share (from dustiness) × particle size factor × bulk density factor × release energy × activity factor, less LEV capture.
+- **Calibration.** The airborne shares are set so a hand-tipped 25 kg sack of a medium-dustiness powder with MEC 60 g/m³ gives about 1 m of Zone 21, the common starting extent. Other cases scale from there.
+- **Amount.** Enter one sack, one bag or one bin, or the amount handled in one minute for continuous work.
+- **Equipment.** EPL Da, Db or Dc, Group IIIA, IIIB or IIIC, and a maximum surface temperature of the lower of ⅔ × MIT cloud and MIT 5 mm layer − 75 K. Flags cover low MIE, Kst class, thick layers and coarse dust.
+
+Every factor is editable on Quick Dust or the Tables sheet. The dust library holds typical values for screening; replace them with test data for your material.
 
 ## Gas and vapour method
 
